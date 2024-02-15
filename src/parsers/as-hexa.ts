@@ -1,6 +1,6 @@
 import { UnexpectedValueError } from '../errors/UnexpectedValueError';
+import { hexStringToHexNumber } from '../utils/number';
 
-import { converHexStringToHexNumber } from './as-hex';
 import { asString } from './as-string';
 
 export const asHexaString = (value: string): string => {
@@ -13,4 +13,4 @@ export const asHexaString = (value: string): string => {
   return innerValue;
 };
 
-export const asHexaNumber = (value: string): number => converHexStringToHexNumber(asHexaString(value));
+export const asHexaNumber = (value: string): number => hexStringToHexNumber(asHexaString(value));
