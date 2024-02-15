@@ -1,6 +1,6 @@
 {
   "name": "icss-to-ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Convert ICSS module exports to strongly typed TypeScript objects",
   "author": "Patrick Rupp",
   "license": "MIT",
