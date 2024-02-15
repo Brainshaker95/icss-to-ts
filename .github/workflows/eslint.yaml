@@ -1,0 +1,30 @@
+name: ESLint
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun i
+
+      - name: Run ESLint
+        run: bun --bun eslint . --config ./conf/eslint.config.cjs --max-warnings 0 --ignore-path .gitignore --fix
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'chore(hygiene): apply eslint changes'

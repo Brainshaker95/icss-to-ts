@@ -1,0 +1,7 @@
+{
+  "eslint.options": {
+    "overrideConfigFile": "./conf/eslint.config.cjs"
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.tsdk": "./node_modules/typescript/lib"
+}

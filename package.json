@@ -1,0 +1,69 @@
+{
+  "name": "icss-to-ts",
+  "version": "1.0.0",
+  "description": "Convert ICSS module exports to strongly typed TypeScript objects",
+  "author": "Patrick Rupp",
+  "license": "MIT",
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./dist": {
+      "import": "./dist/index.ts",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./src": {
+      "import": "./src/index.ts"
+    }
+  },
+  "files": [
+    "./dist",
+    "./src"
+  ],
+  "scripts": {
+    "dev": "bun build ./src/index.ts --outdir ./dist --watch",
+    "build": "rm -rf ./dist && bun --bun tsc && bun build ./src/index.ts --outdir ./dist --minify",
+    "lint": "bun --bun eslint . --config ./conf/eslint.config.cjs --max-warnings 0 --ignore-path .gitignore --fix",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "dry-run": "npm publish --dry-run",
+    "prepack": "bun run build",
+    "prepublishOnly": "bun lint && bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "1.0.5",
+    "@types/eslint": "8.56.2",
+    "@types/node": "20.11.17",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "@vitest/coverage-v8": "1.2.2",
+    "eslint": "8.56.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "17.1.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-unicorn": "51.0.1",
+    "typescript": "5.3.3",
+    "vitest": "1.2.2"
+  },
+  "homepage": "https://github.com/Brainshaker95/icss-to-ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brainshaker95/icss-to-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Brainshaker95/icss-to-ts/issues"
+  },
+  "keywords": [
+    "parser",
+    "icss",
+    "css",
+    "scss",
+    "modules",
+    "typescript"
+  ]
+}
