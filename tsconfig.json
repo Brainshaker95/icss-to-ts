@@ -21,12 +21,20 @@
     "checkJs": true,
     "sourceMap": true,
     "skipLibCheck": true,
+    "noUnusedLocals": true,
 		"isolatedModules": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
+    "noImplicitReturns": true,
     "resolveJsonModule": true,
+    "allowUnusedLabels": false,
+    "noImplicitOverride": true,
     "verbatimModuleSyntax": true,
+    "allowUnreachableCode": false,
     "noUncheckedIndexedAccess": true,
-    "forceConsistentCasingInFileNames": true
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "noPropertyAccessFromIndexSignature": true
   }
 }
