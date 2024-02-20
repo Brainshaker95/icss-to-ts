@@ -53,6 +53,12 @@ module.exports = {
     'no-invalid-this': 'off',
     '@typescript-eslint/no-invalid-this': 'error',
     '@typescript-eslint/no-loop-func': 'error',
+    '@typescript-eslint/dot-notation': [
+      'error',
+      {
+        allowIndexSignaturePropertyAccess: true,
+      },
+    ],
     'no-magic-numbers': 'off',
     '@typescript-eslint/no-magic-numbers': [
       'error',
@@ -83,6 +89,7 @@ module.exports = {
         allowImplicit: true,
       },
     ],
+    'unicorn/prefer-node-protocol': 'off',
     'unicorn/prefer-switch': 'off',
     'unicorn/string-content': [
       'error',
