@@ -10,12 +10,16 @@ export type DeepReadonly<T extends object> = {
 
 export type UnknownObject = Record<string, unknown>;
 
-export const deepFreeze = <T extends UnknownObject>(object: T): DeepReadonly<T> => {
-  for (const value of Object.values(object)) {
-    if (value && typeof value === 'object') {
+export const object = Object;
+
+export const emptyObject = (): UnknownObject => <UnknownObject>Object.create(null);
+
+export const deepFreeze = <T extends UnknownObject>(objectToFreeze: T): DeepReadonly<T> => {
+  for (const value of object.values(objectToFreeze)) {
+    if (typeof value === 'object') {
       deepFreeze(<UnknownObject>value);
     }
   }
 
-  return Object.freeze(object);
+  return object.freeze(objectToFreeze);
 };

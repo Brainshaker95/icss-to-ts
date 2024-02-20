@@ -1,17 +1,23 @@
 import { UnexpectedValueError } from '../errors/UnexpectedValueError';
+import { asNumber } from '../parsers/as-number';
+import { asString } from '../parsers/as-string';
 
-export const rgbRange = (value: number): number => {
-  if (value < 0 || value > 255) {
-    throw new UnexpectedValueError(value, 'be between 0 and 255');
+export const regex = (testRegex: RegExp, value: string, message: string): string => {
+  const innerValue = asString(value);
+
+  if (!testRegex.test(innerValue)) {
+    throw new UnexpectedValueError(innerValue, message);
   }
 
-  return value;
+  return innerValue;
 };
 
-export const alphaRange = (value: number): number => {
-  if (value < 0 || value > 1) {
-    throw new UnexpectedValueError(value, 'be between 0 and 1');
+export const range = (min: number, value: string, max: number): number => {
+  const innerValue = asNumber(value);
+
+  if (innerValue < min || innerValue > max) {
+    throw new UnexpectedValueError(innerValue, `be between ${min} and ${max}`);
   }
 
-  return value;
+  return innerValue;
 };

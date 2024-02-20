@@ -1,3 +1,5 @@
+export const string = String;
+
 export const stripQuotes = (
   value: string,
 ): string => ((value.startsWith('"') && value.endsWith('"'))
