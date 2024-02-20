@@ -1,4 +1,5 @@
-import { deepFreeze } from './utils/object';
+import { UnexpectedValueError } from './errors/UnexpectedValueError';
+import { deepFreeze, emptyObject, object } from './utils/object';
 
 import type {
   DeepReadonly,
@@ -24,44 +25,58 @@ export type ParsedSchema<T extends Schema> = {
 
 export type IcssExports<T extends Schema> = Simplify<DeepReadonly<ParsedSchema<T>>>;
 
+const fillParsedIcssExports = (
+  icssExports: IcssModuleExports,
+  parser: Parser,
+  parsedIcssExports: UnknownObject,
+  propertyPath: string[],
+): void => {
+  const property = propertyPath.join('-');
+  const rawValue = icssExports[property];
+
+  if (rawValue === undefined) {
+    throw new UnexpectedValueError('undefined', `be an ICSS export, tried to parse property "${property}"`);
+  }
+
+  let currentExports = parsedIcssExports;
+
+  for (const [index, currentProperty] of propertyPath.entries()) {
+    if (index === propertyPath.length - 1) {
+      currentExports[currentProperty] = parser(rawValue);
+    } else {
+      currentExports[currentProperty] ??= emptyObject();
+      currentExports = <UnknownObject>currentExports[currentProperty];
+    }
+  }
+};
+
+const iterateSchema = (
+  icssExports: IcssModuleExports,
+  schema: Schema,
+  parsedIcssExports: UnknownObject,
+  propertyPath: string[] = [],
+): void => {
+  for (const [key, value] of object.entries(schema)) {
+    const functionToCall = typeof value === 'function'
+      ? fillParsedIcssExports
+      : iterateSchema;
+
+    functionToCall(
+      icssExports,
+      <Parser & Schema>value,
+      parsedIcssExports,
+      [...propertyPath, key],
+    );
+  }
+};
+
 export const icssToTs = <T extends Schema>(
   icssExports: IcssModuleExports,
   schema: T,
 ): IcssExports<T> => {
-  const parsedIcssExports = <UnknownObject>Object.create(null);
+  const parsedIcssExports = emptyObject();
 
-  for (const [key, value] of Object.entries(icssExports)) {
-    const propertyPath = String(key).split('-');
-    let currentProperty = propertyPath.shift();
-    let currentObject = parsedIcssExports;
-    let currentSchema: Schema = schema;
-
-    while (currentProperty !== undefined) {
-      const schemaEntry = currentSchema[currentProperty];
-
-      if (!schemaEntry) {
-        break;
-      }
-
-      if (typeof schemaEntry === 'function') {
-        currentObject[currentProperty] = schemaEntry(value);
-
-        break;
-      }
-
-      const nextObject = <UnknownObject>(currentObject[currentProperty] ?? Object.create(null));
-      const nextSchema = currentSchema[currentProperty];
-
-      currentObject[currentProperty] = nextObject;
-      currentObject = nextObject;
-
-      if (typeof nextSchema === 'object') {
-        currentSchema = nextSchema;
-      }
-
-      currentProperty = propertyPath.shift();
-    }
-  }
+  iterateSchema(icssExports, schema, parsedIcssExports);
 
   return deepFreeze(<ParsedSchema<T>>parsedIcssExports);
 };
