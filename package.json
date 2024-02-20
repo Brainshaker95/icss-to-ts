@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "icss-to-ts",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Convert ICSS module exports to strongly typed TypeScript objects",
   "author": "Patrick Rupp",
   "license": "MIT",
