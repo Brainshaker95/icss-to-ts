@@ -145,6 +145,8 @@ test('parses a given icss variable object to a deeply nested and readonly one', 
 });
 
 test('different parser cases', () => {
+  expectObjectToStrictEqual(icssToTs({ a: '10px' }, {}), {});
+
   expectObjectToStrictEqual(icssToTs({ a: '1rem' }, { a: asString }), { a: '1rem' });
   expectObjectToStrictEqual(icssToTs({ a: '\'1rem\'' }, { a: asString }), { a: '1rem' });
   expectObjectToStrictEqual(icssToTs({ a: '"1rem"' }, { a: asString }), { a: '1rem' });
@@ -163,6 +165,10 @@ test('different parser cases', () => {
   expectObjectToStrictEqual(icssToTs({ a: '0, 1, 2' }, { a: asTuple }), { a: ['0', '1', '2'] });
   expectObjectToStrictEqual(icssToTs({ a: '0, 1 2' }, { a: asTuple }), { a: ['0', '1', '2'] });
   expectObjectToStrictEqual(icssToTs({ a: 'red green blue' }, { a: asTuple }), { a: ['red', 'green', 'blue'] });
+
+  expect(() => icssToTs({ b: '10px' }, { a: asString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({}, { a: asString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ 'a-b': '10px' }, { a: { c: asString } })).toThrow(UnexpectedValueError);
 
   expect(() => icssToTs({ a: '' }, { a: asBoolean })).toThrow(UnexpectedValueError);
   expect(() => icssToTs({ a: 'red' }, { a: asBoolean })).toThrow(UnexpectedValueError);
