@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers, max-len */
 
-import { expect, test } from 'vitest';
+import { expect, test } from 'bun:test';
 
 import {
   UnexpectedValueError,
@@ -122,24 +122,24 @@ test('parses a given icss variable object to a deeply nested and readonly one', 
   expect(() => {
     // @ts-expect-error - disabled for this test
     css.a = '1';
-  }).toThrowError(TypeError);
+  }).toThrow(TypeError);
 
   expect(() => {
     // @ts-expect-error - disabled for this test
     css.b.bA = '1';
-  }).toThrowError(TypeError);
+  }).toThrow(TypeError);
 
   expect(() => {
     // @ts-expect-error - disabled for this test
     css.c.cB.blue = 127;
-  }).toThrowError(TypeError);
+  }).toThrow(TypeError);
 
   expect(() => {
     // @ts-expect-error - disabled for this test
     // disabled for this test
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     css.d.push(1);
-  }).toThrowError(TypeError);
+  }).toThrow(TypeError);
 
   expectObjectToStrictEqual(deepFreeze({ foo: 'bar' }), { foo: 'bar' });
 });
@@ -164,36 +164,36 @@ test('different parser cases', () => {
   expectObjectToStrictEqual(icssToTs({ a: '0, 1 2' }, { a: asTuple }), { a: ['0', '1', '2'] });
   expectObjectToStrictEqual(icssToTs({ a: 'red green blue' }, { a: asTuple }), { a: ['red', 'green', 'blue'] });
 
-  expect(() => icssToTs({ a: '' }, { a: asBoolean })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: 'red' }, { a: asBoolean })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '2' }, { a: asBoolean })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '-1' }, { a: asBoolean })).toThrowError(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asBoolean })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: 'red' }, { a: asBoolean })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '2' }, { a: asBoolean })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '-1' }, { a: asBoolean })).toThrow(UnexpectedValueError);
 
-  expect(() => icssToTs({ a: '1pix' }, { a: asPx })).toThrowError(UnexpectedValueError);
+  expect(() => icssToTs({ a: '1pix' }, { a: asPx })).toThrow(UnexpectedValueError);
 
-  expect(() => icssToTs({ a: '' }, { a: asHexString })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '' }, { a: asHexNumber })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '#FFFFF' }, { a: asHexString })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '#FFFFFG' }, { a: asHexString })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '#0000000' }, { a: asHexString })).toThrowError(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asHexString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asHexNumber })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '#FFFFF' }, { a: asHexString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '#FFFFFG' }, { a: asHexString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '#0000000' }, { a: asHexString })).toThrow(UnexpectedValueError);
 
-  expect(() => icssToTs({ a: '' }, { a: asHexaString })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '' }, { a: asHexaNumber })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '#FFFFFFF' }, { a: asHexaString })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '#FFFFFFFG' }, { a: asHexaString })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '#000000000' }, { a: asHexaString })).toThrowError(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asHexaString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asHexaNumber })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '#FFFFFFF' }, { a: asHexaString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '#FFFFFFFG' }, { a: asHexaString })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '#000000000' }, { a: asHexaString })).toThrow(UnexpectedValueError);
 
-  expect(() => icssToTs({ a: '' }, { a: asRgb })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255' }, { a: asRgb })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 blue' }, { a: asRgb })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 255 1' }, { a: asRgb })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '-1 255 255' }, { a: asRgb })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 256' }, { a: asRgb })).toThrowError(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asRgb })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255' }, { a: asRgb })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 blue' }, { a: asRgb })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 255 1' }, { a: asRgb })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '-1 255 255' }, { a: asRgb })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 256' }, { a: asRgb })).toThrow(UnexpectedValueError);
 
-  expect(() => icssToTs({ a: '' }, { a: asRgba })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 255' }, { a: asRgba })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 255 alpha' }, { a: asRgba })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 255 0 1' }, { a: asRgba })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 255 -1' }, { a: asRgba })).toThrowError(UnexpectedValueError);
-  expect(() => icssToTs({ a: '255 255 255 2' }, { a: asRgba })).toThrowError(UnexpectedValueError);
+  expect(() => icssToTs({ a: '' }, { a: asRgba })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 255' }, { a: asRgba })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 255 alpha' }, { a: asRgba })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 255 0 1' }, { a: asRgba })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 255 -1' }, { a: asRgba })).toThrow(UnexpectedValueError);
+  expect(() => icssToTs({ a: '255 255 255 2' }, { a: asRgba })).toThrow(UnexpectedValueError);
 });
