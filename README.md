@@ -323,7 +323,6 @@ Distributed under the MIT License. See [LICENSE](./LICENSE) for more information
 
 * [CSS Modules](https://github.com/css-modules/css-modules)
 * [TypeScript](https://www.typescriptlang.org)
-* [Vitest](https://vitest.dev)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template) by [othneildrew](https://github.com/othneildrew)
 * [Choose an Open Source License](https://choosealicense.com)
 * [Img Shields](https://shields.io)
