@@ -35,18 +35,17 @@
     "prepublishOnly": "bun lint && bun test"
   },
   "devDependencies": {
-    "@types/bun": "1.0.6",
-    "@types/eslint": "8.56.2",
-    "@types/node": "20.11.19",
-    "@typescript-eslint/eslint-plugin": "7.0.1",
-    "@typescript-eslint/parser": "7.0.1",
-    "eslint": "8.56.0",
+    "@types/bun": "1.1.11",
+    "@types/eslint": "8.56.12",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "eslint": "8.57.1",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.1.0",
-    "eslint-import-resolver-typescript": "3.6.1",
-    "eslint-plugin-import": "2.29.1",
+    "eslint-config-airbnb-typescript": "18.0.0",
+    "eslint-import-resolver-typescript": "3.6.3",
+    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-unicorn": "51.0.1",
-    "typescript": "5.3.3"
+    "typescript": "5.5.4"
   },
   "homepage": "https://github.com/Brainshaker95/icss-to-ts",
   "repository": {
